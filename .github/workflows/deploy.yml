@@ -26,22 +26,17 @@ jobs:
             - name: Install Serverless Devs
               run: npm install @serverless-devs/s -g
 
-            - name: Debug Secrets
-              run: |
-                  if [ -z "${{ secrets.ALIYUN_ACCESS_KEY_ID }}" ]; then
-                  echo "ALIYUN_ACCESS_KEY secret is NOT set."
-                  else
-                  echo "ALIYUN_ACCESS_KEY secret is set."
-                  fi
-                  if [ -z "${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}" ]; then
-                  echo "ALIYUN_SECRET_KEY secret is NOT set."
-                  else
-                  echo "ALIYUN_SECRET_KEY secret is set."
-                  fi
-
             # 4. Configure Serverless Devs with credentials from GitHub Secrets
             - name: Configure Credentials
               run: s config add --AccessKeyID ${{ secrets.ALIYUN_ACCESS_KEY_ID }} --AccessKeySecret ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }} -a default -f
+
+            - name: Get Aliyun Authorization Token
+              id: get_token
+              run: |
+                  echo "ACCESS_KEY_ID=${{ secrets.ALIYUN_ACCESS_KEY_ID }}"
+                  echo "ACCESS_KEY_SECRET=${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}"
+                  echo "ALI_BABA_REGION=${{ secrets.ALIYUN_REGION }}"
+                  echo "CR_INSTANCE_ID=${{ secrets.ALIYUN_CR_INSTANCE_ID }}"
 
             # 5. Deploy the function
             - name: Deploy Function
