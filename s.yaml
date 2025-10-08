@@ -7,10 +7,9 @@ resources:
     component: fc3
     props:
       region: "me-central-1"
-      functionName: "insemination-handler"
+      handler: "index.handler"
       description: "Function to process camel insemination lifecycle."
       runtime: "nodejs18"
-      handler: "index.sendMessage"
       timeout: 60
       code: ./
       
