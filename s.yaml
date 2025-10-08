@@ -1,0 +1,22 @@
+edition: 3.0.0
+name: camel-insemination-app
+access: "default"
+
+resources:
+  insemination-handler:
+    component: fc3
+    props:
+      region: ""
+      functionName: "insemination-handler"
+      description: "Function to process camel insemination lifecycle."
+      runtime: "nodejs18"
+      handler: "index.sendMessage"
+      timeout: 60
+      code: ./
+      
+      environmentVariables:
+        # These values are now securely provided by the GitHub Actions runner
+        ALIYUN_ACCESS_KEY: "${env.ALIYUN_ACCESS_KEY}"
+        ALIYUN_SECRET_KEY: "${env.ALIYUN_SECRET_KEY}"
+        MNS_ACCOUNT_ID: "${env.MNS_ACCOUNT_ID}"
+        MNS_REGION: ""

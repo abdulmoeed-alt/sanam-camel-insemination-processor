@@ -1,0 +1,40 @@
+# GitHub Actions Workflow for deploying to Alibaba Cloud Function Compute
+name: Deploy to Alibaba Cloud FC
+
+# This workflow runs on every push to the 'main' branch
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    deploy-function:
+        runs-on: ubuntu-latest # Use the latest available runner
+
+        steps:
+            # 1. Checks out your repository code
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            # 2. Sets up Node.js environment
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "18" # Must match the runtime in your s.yaml
+
+            # 3. Install Serverless Devs CLI
+            - name: Install Serverless Devs
+              run: npm install @serverless-devs/s -g
+
+            # 4. Configure Serverless Devs with credentials from GitHub Secrets
+            - name: Configure Credentials
+              run: s config add --AccessKeyID ${{ secrets.ALIYUN_ACCESS_KEY }} --AccessKeySecret ${{ secrets.ALIYUN_SECRET_KEY }} -a default -f
+
+            # 5. Deploy the function
+            - name: Deploy Function
+              # We pass the secrets as environment variables so s.yaml can access them
+              run: s deploy --use-local -y
+              env:
+                  ALIYUN_ACCESS_KEY: ${{ secrets.ALIYUN_ACCESS_KEY }}
+                  ALIYUN_SECRET_KEY: ${{ secrets.ALIYUN_SECRET_KEY }}
+                  MNS_ACCOUNT_ID: ${{ secrets.MNS_ACCOUNT_ID }}
