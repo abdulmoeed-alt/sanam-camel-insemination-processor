@@ -11,19 +11,21 @@ jobs:
     deploy-function:
         runs-on: ubuntu-latest # Use the latest available runner
 
-        env:
-            ALIYUN_ACCESS_KEY_ID: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
-            ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
-            MNS_ACCOUNT_ID: ${{ secrets.MNS_ACCOUNT_ID }}
-            MNS_QUEUE_NAME: ${{ secrets.MNS_QUEUE_NAME }}
-            FCM_CREDENTIALS_JSON: ${{ secrets.FCM_CREDENTIALS_JSON }}
-            MONGO_URI: ${{ secrets.MONGO_URI }}
-            MONGO_DBNAME: ${{ secrets.MONGO_DBNAME }}
-
         steps:
             # 1. Checks out your repository code
             - name: Checkout Code
               uses: actions/checkout@v4
+
+            # Adding as step in .env file
+            - name: Create .env file
+              run: |
+                  echo "ALIYUN_ACCESS_KEY_ID=${{ secrets.ALIYUN_ACCESS_KEY_ID }}" >> .env
+                  echo "ALIYUN_ACCESS_KEY_SECRET=${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}" >> .env
+                  echo "MNS_ACCOUNT_ID=${{ secrets.MNS_ACCOUNT_ID }}" >> .env
+                  echo "MNS_QUEUE_NAME=${{ secrets.MNS_QUEUE_NAME }}" >> .env
+                  echo "FCM_CREDENTIALS_JSON='${{ secrets.FCM_CREDENTIALS_JSON }}'" >> .env
+                  echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env
+                  echo "MONGO_DBNAME=${{ secrets.MONGO_DBNAME }}" >> .env
 
             # 2. Sets up Node.js environment
             - name: Setup Node.js
