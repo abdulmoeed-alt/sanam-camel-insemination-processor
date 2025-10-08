@@ -25,8 +25,8 @@ resources:
         MONGO_DBNAME: "MONGO_DBNAME_PLACEHOLDER"
 
       triggers:
-        - name: on-insemination-event
-          type: mns 
+        - TriggerName: on-insemination-event
+          TriggerType: mns 
           config:
             queueName: "insemination-processing-queue"
             notifyContentFormat: "JSON"
