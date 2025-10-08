@@ -16,7 +16,11 @@ resources:
       
       environmentVariables:
         # These values are now securely provided by the GitHub Actions runner
-        ALIYUN_ACCESS_KEY: "${env.ALIYUN_ACCESS_KEY}"
-        ALIYUN_SECRET_KEY: "${env.ALIYUN_SECRET_KEY}"
+        ALIYUN_ACCESS_KEY: "${env.ALIYUN_ACCESS_KEY_ID}"
+        ALIYUN_SECRET_KEY: "${env.ALIYUN_ACCESS_KEY_SECRET}"
         MNS_ACCOUNT_ID: "${env.MNS_ACCOUNT_ID}"
         MNS_REGION: "me-central-1"
+        MNS_QUEUE_NAME: "${env.MNS_QUEUE_NAME}"
+        FCM_CREDENTIALS_JSON: "${env.FCM_CREDENTIALS_JSON}"
+        MONGO_URI: "${env.MONGO_URI}"
+        MONGO_DBNAME: "${env.MONGO_DBNAME}"

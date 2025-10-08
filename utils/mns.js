@@ -7,16 +7,16 @@ let account;
 function getAccount() {
   if (!account) {
     // 2. Check for the new required environment variables
-    if (!process.env.ALIYUN_ACCESS_KEY || !process.env.ALIYUN_SECRET_KEY || !process.env.MNS_ACCOUNT_ID || !process.env.MNS_REGION) {
+    if (!process.env.ALIYUN_ACCESS_KEY_ID || !process.env.ALIYUN_ACCESS_KEY_SECRET || !process.env.MNS_ACCOUNT_ID || !process.env.MNS_REGION) {
       throw new Error("MNS environment variables (KEY, SECRET, MNS_ACCOUNT_ID, MNS_REGION) are not properly set!");
     }
     
     // The new SDK uses Account ID and Region instead of a full endpoint
     account = new Account(
       process.env.MNS_ACCOUNT_ID,
-      process.env.ALIYUN_ACCESS_KEY,
-      process.env.ALIYUN_SECRET_KEY,
-      process.env.MNS_REGION
+      process.env.ALIYUN_ACCESS_KEY_ID,
+      process.env.ALIYUN_ACCESS_KEY_SECRET,
+      process.env.MNS_ACCOUNT_ID
     );
   }
   return account;
