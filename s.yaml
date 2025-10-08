@@ -26,7 +26,7 @@ resources:
 
       triggers:
         - triggerName: on-insemination-event
-          triggerType: mns
+          triggerType: mns_topic
           config:
             queueName: "insemination-processing-queue"
             notifyContentFormat: "JSON"
