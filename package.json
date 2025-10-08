@@ -1,0 +1,11 @@
+{
+  "name": "camel-insemination-processor",
+  "version": "1.0.0",
+  "description": "Function to process camel insemination lifecycle.",
+  "main": "index.js",
+  "dependencies": {
+    "@alicloud/mns": "^1.0.0",
+    "mongodb": "^4.1.0",
+    "firebase-admin": "^11.10.0"
+  }
+}
