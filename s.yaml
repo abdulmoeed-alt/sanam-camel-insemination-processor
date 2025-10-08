@@ -23,11 +23,3 @@ resources:
         FCM_CREDENTIALS_JSON: "FCM_CREDENTIALS_JSON_PLACEHOLDER"
         MONGO_URI: "MONGO_URI_PLACEHOLDER"
         MONGO_DBNAME: "MONGO_DBNAME_PLACEHOLDER"
-
-      triggers:
-        - triggerName: on-insemination-event
-          triggerType: mns_topic
-          config:
-            queueName: "insemination-processing-queue"
-            notifyContentFormat: "JSON"
-            notifyStrategy: "BACKOFF_RETRY"
