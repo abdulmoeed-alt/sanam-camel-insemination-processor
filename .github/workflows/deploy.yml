@@ -16,19 +16,19 @@ jobs:
             - name: Checkout Code
               uses: actions/checkout@v4
 
-            # Adding as step in .env file
-            - name: Create .env file
+            - name: Populate s.yaml with secrets
               run: |
-                  echo "ALIYUN_ACCESS_KEY_ID=${{ secrets.ALIYUN_ACCESS_KEY_ID }}" >> .env
-                  echo "ALIYUN_ACCESS_KEY_SECRET=${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}" >> .env
-                  echo "MNS_ACCOUNT_ID=${{ secrets.MNS_ACCOUNT_ID }}" >> .env
-                  echo "MNS_QUEUE_NAME=${{ secrets.MNS_QUEUE_NAME }}" >> .env
-                  echo "FCM_CREDENTIALS_JSON='${{ secrets.FCM_CREDENTIALS_JSON }}'" >> .env
-                  echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env
-                  echo "MONGO_DBNAME=${{ secrets.MONGO_DBNAME }}" >> .env
+                  sed -i "s|ACCESS_KEY_ID_PLACEHOLDER|${{ secrets.ALIYUN_ACCESS_KEY_ID }}|g" s.yaml
+                  sed -i "s|ACCESS_KEY_SECRET_PLACEHOLDER|${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}|g" s.yaml
+                  sed -i "s|MNS_ACCOUNT_ID_PLACEHOLDER|${{ secrets.MNS_ACCOUNT_ID }}|g" s.yaml
+                  sed -i "s|MNS_QUEUE_NAME_PLACEHOLDER|${{ secrets.MNS_QUEUE_NAME }}|g" s.yaml
+                  sed -i "s|FCM_CREDENTIALS_JSON_PLACEHOLDER|${{ secrets.FCM_CREDENTIALS_JSON }}|g" s.yaml
+                  sed -i "s|MONGO_URI_PLACEHOLDER|${{ secrets.MONGO_URI }}|g" s.yaml
+                  sed -i "s|MONGO_DBNAME_PLACEHOLDER|${{ secrets.MONGO_DBNAME }}|g" s.yaml
 
-            - name: Verify the env file has values
-              run: cat .env
+            # (Optional) You can add this step to see the final s.yaml file
+            - name: Verify populated s.yaml
+              run: cat s.yaml
 
             # 2. Sets up Node.js environment
             - name: Setup Node.js
