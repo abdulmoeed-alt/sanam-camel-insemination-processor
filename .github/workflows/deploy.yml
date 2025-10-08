@@ -11,6 +11,15 @@ jobs:
     deploy-function:
         runs-on: ubuntu-latest # Use the latest available runner
 
+        env:
+            ALIYUN_ACCESS_KEY_ID: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
+            ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
+            MNS_ACCOUNT_ID: ${{ secrets.MNS_ACCOUNT_ID }}
+            MNS_QUEUE_NAME: ${{ secrets.MNS_QUEUE_NAME }}
+            FCM_CREDENTIALS_JSON: ${{ secrets.FCM_CREDENTIALS_JSON }}
+            MONGO_URI: ${{ secrets.MONGO_URI }}
+            MONGO_DBNAME: ${{ secrets.MONGO_DBNAME }}
+
         steps:
             # 1. Checks out your repository code
             - name: Checkout Code
@@ -42,11 +51,3 @@ jobs:
             - name: Deploy Function
               # We pass the secrets as environment variables so s.yaml can access them
               run: s deploy --use-local -y
-              env:
-                  ALIYUN_ACCESS_KEY_ID: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
-                  ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
-                  MNS_ACCOUNT_ID: ${{ secrets.MNS_ACCOUNT_ID }}
-                  FCM_CREDENTIALS_JSON: ${{ secrets.FCM_CREDENTIALS_JSON }}
-                  MNS_QUEUE_NAME: ${{ secrets.MNS_QUEUE_NAME }}
-                  MONGO_URI: ${{ secrets.MONGO_URI }}
-                  MONGO_DBNAME: ${{ secrets.MONGO_DBNAME }}
