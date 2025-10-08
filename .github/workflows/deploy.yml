@@ -27,6 +27,9 @@ jobs:
                   echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env
                   echo "MONGO_DBNAME=${{ secrets.MONGO_DBNAME }}" >> .env
 
+            - name: Verify the env file has values
+              run: cat .env
+
             # 2. Sets up Node.js environment
             - name: Setup Node.js
               uses: actions/setup-node@v4
